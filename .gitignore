@@ -1,5 +1,7 @@
 .idea
 data_stock_tracker
+notebooks
+stocks.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
