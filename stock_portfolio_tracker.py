@@ -120,7 +120,7 @@ if st.button("Analyze portfolio",key='1'):
 
                 ####### RATIOS ###########################
                 df_complete_annual = calculate_ratios(df_annual_financials,dict_tickers)
-                st.write(df_complete_annual)
+                #st.write(df_complete_annual)
 
                 #######################################################PLOTS#############################################################
                 ##################MARKET CAP METRICS################

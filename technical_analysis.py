@@ -195,6 +195,7 @@ def accumulated_return_plot(df_portfolio,df_benchmark):
     return_acumulado_columns = df.loc[:, df.columns.str.contains('Return_acumulado')].columns
     return_acumulado_columns_replaced = [col.replace("Return_acumulado_", "") for col in return_acumulado_columns]
     dict_cols = dict(zip(return_acumulado_columns, return_acumulado_columns_replaced))
+    palette = cycle(px.colors.qualitative.Dark24)
     df = df.rename(columns=dict_cols)
     for stock in return_acumulado_columns_replaced:
         if stock == '^GSPC':
@@ -217,15 +218,13 @@ def accumulated_return_plot(df_portfolio,df_benchmark):
             x=df['Date'],
             y=df[stock],
             name=stock,
+            marker_color=next(palette),
             mode='lines',
             opacity=alpha,
             line={'width': lw,
                   'dash': dash}
         ))
-    figure.update_layout(title_text="<b>Accumulated return over time</b>",
-                         updatemenus=[dict(buttons=[
-                             dict(label="Linear", method="relayout", args=[{"yaxis.type": "linear"}]),
-                             dict(label="Log", method="relayout", args=[{"yaxis.type": "log"}])])])
+    figure.update_layout(title_text="<b>Accumulated return over time</b>")
     figure.update_xaxes(
         title = "Date",
         rangeslider_visible=True,
@@ -250,6 +249,7 @@ def drawdawn_plot(df_portfolio, df_benchmark):
     drawdawn_columns = df.loc[:, df.columns.str.contains('Drawdawn')].columns
     drawdawn_columns_replaced = [col.replace("Drawdawn_", "") for col in drawdawn_columns]
     dict_cols = dict(zip(drawdawn_columns, drawdawn_columns_replaced))
+    palette = cycle(px.colors.qualitative.Dark24)
     df = df.rename(columns=dict_cols)
     for stock in drawdawn_columns_replaced:
         if stock == '^GSPC':
@@ -272,6 +272,7 @@ def drawdawn_plot(df_portfolio, df_benchmark):
             x=df['Date'],
             y=df[stock],
             name=stock,
+            marker_color=next(palette),
             mode='lines',
             opacity=alpha,
             line={'width': lw,
@@ -300,6 +301,7 @@ def day_returns_plot(df_portfolio, df_benchmark):
     return_columns = df.loc[:, df.columns.str.contains('Daily_return')].columns
     return_columns_replaced = [col.replace("Daily_return_", "") for col in return_columns]
     dict_cols = dict(zip(return_columns, return_columns_replaced))
+    palette = cycle(px.colors.qualitative.Dark24)
     df = df.rename(columns=dict_cols)
     for stock in return_columns_replaced:
         if stock == '^GSPC':
@@ -322,6 +324,7 @@ def day_returns_plot(df_portfolio, df_benchmark):
             x=df['Date'],
             y=df[stock],
             name=stock,
+            marker_color=next(palette),
             mode='lines',
             opacity=alpha,
             line={'width': lw,
@@ -349,6 +352,7 @@ def allocation_plot(df):
     allocation_drift_columns = df.loc[:, df.columns.str.contains('Percentage_allocation')].columns
     allocation_drift_columns_replaced = [col.replace("Percentage_allocation_", "") for col in allocation_drift_columns]
     dict_cols = dict(zip(allocation_drift_columns, allocation_drift_columns_replaced))
+    palette = cycle(px.colors.qualitative.Dark24)
     df = df.rename(columns=dict_cols)
     for stock in allocation_drift_columns_replaced:
         if stock == 'total':
@@ -361,6 +365,7 @@ def allocation_plot(df):
             x=df['Date'],
             y=df[stock],
             name=stock,
+            marker_color=next(palette),
             mode='lines',
             opacity=alpha,
             line={'width': lw}
