@@ -1,1 +1,1 @@
-web: streamlit run stock_portfolio_tracker.py --server.port $PORT --server.headless true
+web: streamlit run stock_portfolio_analyzer.py --server.port $PORT --server.headless true

@@ -29,7 +29,6 @@ def market_cap(dict_tickers, proxy_option):
         outstanding_shares = market_cap / actual_price
         dict_annual_price[ticker][f'Outstanding_shares_{ticker}'] = outstanding_shares
         dict_annual_price[ticker][f'Market_cap_{ticker}'] = dict_annual_price[ticker][f'Outstanding_shares_{ticker}'] * dict_annual_price[ticker][f'Price_{ticker}']
-
     my_reduce = partial(pd.merge, on='Date', how='outer')
     df_price = reduce(my_reduce, dict_annual_price.values()).sort_values(by="Date", ascending=False)
     return df_price
@@ -48,10 +47,7 @@ def annual_financials(dict_tickers):
                                             'Ebit': f'Ebit_{ticker}',
                                             'Net Income': f'Net_income_{ticker}',
                                             'Research Development':f'Research_development_{ticker}'}).reset_index(drop=[''])
-
-        #df['Date'] = df['Date'].dt.strftime('%Y-%m-%d')
         dict_annual_income_statement[ticker] = df
-        #print(df)
     #my_reduce = partial(pd.merge, on='Date', how='outer')
     #df_annual_income_statement = reduce(my_reduce, dict_annual_income_statement.values()).sort_values(by="Date",ascending=False)
     df_annual_income_statement = pd.concat(dict_annual_income_statement.values(),axis=1)
@@ -66,10 +62,6 @@ def annual_financials(dict_tickers):
                                                         'Total Current Liabilities':f'Total_current_liabilities_{ticker}',
                                                         'Long Term Debt': f'Long_term_debt_{ticker}',
                                                         'Total Stockholder Equity':f'Equity_{ticker}'}).reset_index(drop=[''])
-
-
-        #df['Date'] = df['Date'].dt.strftime('%Y-%m-%d')
-        #print(df)
         dict_annual_balance_sheet[ticker] = df
     #my_reduce = partial(pd.merge, on='Date', how='outer')
     #df_annual_balance_sheet = reduce(my_reduce, dict_annual_balance_sheet.values()).sort_values(by="Date",ascending=False)
@@ -80,7 +72,6 @@ def annual_financials(dict_tickers):
     annual_dates = ['2020-01-01','2019-01-01','2018-01-01','2017-01-01']
     df_annual_financials['Date'] = pd.to_datetime(annual_dates).strftime('%Y-%m-%d')
     df_annual_financials = df_annual_financials.set_index('Date').reset_index()
-    #print(df_annual_financials)
     return df_annual_financials
 
 ################ QUARTER INCOME STATEMENT ###########################
@@ -95,8 +86,6 @@ def quarter_income_statement(dict_tickers):
                                                         'Ebit': f'Ebit_{ticker}',
                                                         'Net Income': f'Net_income_{ticker}',
                                                         'Research Development':f'Research_development_{ticker}'}).reset_index(drop=[''])
-
-        #df['Date'] = df['Date'].dt.strftime('%Y-%m-%d')
         dict_quarter_income_statement[ticker] = df
     #my_reduce = partial(pd.merge, on='Date', how='outer')
     #df_quarter_income_statement = reduce(my_reduce, dict_quarter_income_statement.values()).sort_values(by="Date",ascending=False)
@@ -123,7 +112,6 @@ def calculate_ratios(df_annual_financials,dict_tickers):
         df_annual_financials[f'Growth_net_income_{ticker}']= df_annual_financials[f'Net_income_{ticker}'].pct_change(-1)
         df_annual_financials[f'Growth_gross_profit_{ticker}']= df_annual_financials[f'Gross_profit_{ticker}'].pct_change(-1)
 
-
         # NORMALIZED METRICS#
         df_annual_financials[f'Normalized_revenue_{ticker}'] = df_annual_financials[f'Revenue_{ticker}'] / df_annual_financials[f'Revenue_{ticker}'].tail(1).values[0]
         df_annual_financials[f'Normalized_net_income_{ticker}'] = df_annual_financials[f'Net_income_{ticker}'] / df_annual_financials[f'Net_income_{ticker}'].tail(1).values[0]
@@ -143,9 +131,6 @@ def calculate_ratios(df_annual_financials,dict_tickers):
             df_annual_financials[f'Debt/equity_{ticker}'] = df_annual_financials[f'Long_term_debt_{ticker}']/df_annual_financials[f'Equity_{ticker}']
             df_annual_financials[f'Debt/ebit_{ticker}'] = df_annual_financials[f'Long_term_debt_{ticker}'] / df_annual_financials[f'Equity_{ticker}']
     return df_annual_financials
-
-
-
 
 ##########################################################################################################PLOTS###############################################################################
 @st.cache(show_spinner=False,allow_output_mutation=True)
