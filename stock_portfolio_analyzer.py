@@ -97,7 +97,7 @@ if st.button("Analyze portfolio",key='1'):
     else:
         ########################################################FUNDAMENTAL###################################
         if analysis_type == "Fundamental":
-            with st.spinner(text='In progress: it could take a few seconds.'):
+            with st.spinner(text='In progress: it may take a few seconds.'):
                 #####################################################DATA###########################################################
                 ##### TICKERS ######
                 dict_tickers = {}
@@ -255,7 +255,7 @@ if st.button("Analyze portfolio",key='1'):
             if (sum(company_weighs)<= 0.99) | (sum(company_weighs) >= 1.01):
                 st.warning("The sum of the percentages must be equal to 1")
             else:
-                with st.spinner(text='In progress: it could take a few seconds.'):
+                with st.spinner(text='In progress: it may take a few seconds.'):
                     dict_of_df, min_dates, error_tickers = download_data(portfolio_companies, start_date, end_date, proxy_option)
                     min_common_date = max(min_dates)
                     #2) Date check
