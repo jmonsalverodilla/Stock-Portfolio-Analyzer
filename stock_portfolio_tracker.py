@@ -1,15 +1,15 @@
-import plotly.graph_objects as go
-import pandas as pd
-import os
+#Libraries
 import base64
-import streamlit as st
 import datetime
+from io import BytesIO, StringIO
+import os
+import pandas as pd
+import streamlit as st
 import plotly
+import yfinance as yf
+
 from technical_analysis import download_data, portfolio_return, benchmark_return, wealth_plot,accumulated_return_plot, drawdawn_plot, allocation_plot, day_returns_plot
 from fundamental_analysis import market_cap, annual_financials, quarter_income_statement, calculate_ratios, market_cap_plot, bar_plot, line_plot
-from io import BytesIO, StringIO
-import yfinance as yf
-from functools import partial, reduce
 
 #Downloader
 def export_plotly_image_link(fig,path_file):

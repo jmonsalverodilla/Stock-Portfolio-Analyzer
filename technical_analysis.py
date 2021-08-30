@@ -1,11 +1,12 @@
+#Libraries
+from functools import partial, reduce
+from itertools import cycle
 import pandas as pd
-import yfinance as yf
+import os
 import plotly.graph_objects as go
 import plotly.express as px
 import streamlit as st
-from functools import partial, reduce
-import os
-from itertools import cycle
+import yfinance as yf
 
 #####################PORTFOLIO COMPANIES#########################
 #Download data from yfinance api and save it in .csv file

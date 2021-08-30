@@ -1,0 +1,1 @@
+web: streamlit run stock_portfolio_tracker.py --server.port $PORT --server.headless true
