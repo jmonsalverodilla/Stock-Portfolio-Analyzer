@@ -10,6 +10,5 @@ RUN pip install -r requirements.txt
 # expose a port
 EXPOSE 8080
 # ENTRYPOINT
-ENTRYPOINT ["streamlit", "run"]
-# RUN
-CMD ["stock_portfolio_analyzer.py"]
+# CMD streamlit run app.py
+CMD streamlit run --server.port $PORT stock_portfolio_analyzer.py
