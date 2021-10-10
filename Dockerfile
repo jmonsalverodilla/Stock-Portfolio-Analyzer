@@ -8,7 +8,7 @@ ADD . /code
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 # expose a port
-EXPOSE 8501
+EXPOSE $PORT
 # ENTRYPOINT
 CMD ["sh", "-c", "streamlit run --server.port $PORT stock_portfolio_analyzer.py"]
 #CMD streamlit run --server.port $PORT stock_portfolio_analyzer.py

@@ -6,9 +6,10 @@ services:
         build:
             dockerfile: ./Dockerfile
             context: .
+        #env_file: .env
         environment:
-            - PORT=${PORT}
+            - PORT=$PORT
         ports:
-            - ${PORT}:${PORT}
+            - $PORT:$PORT
         #volumes:
         #    - ./app:/usr/app/src/
