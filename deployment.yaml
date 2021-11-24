@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: stock-portfolio-tracker
+  labels:
+    name: stock-portfolio-tracker
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: stock-portfolio-config
+  namespace: stock-portfolio-tracker
+data:
+  port_number: "5050"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stock-portfolio-tracker-deploy
+  namespace: stock-portfolio-tracker
+spec:
+  selector:
+    matchLabels:
+      app: stock-portfolio-tracker-app
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: stock-portfolio-tracker-app
+    spec:
+      containers:
+        - name: stock-portfolio-tracker-app
+          image: portfolio_tracker:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5050
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: stock-portfolio-config
+                  key: port_number
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: stock-portfolio-tracker-service
+  namespace: stock-portfolio-tracker
+spec:
+  type: LoadBalancer
+  selector:
+    app: stock-portfolio-tracker-app
+  ports:
+    - protocol: "TCP"
+      port: 9000
+      targetPort: 5050

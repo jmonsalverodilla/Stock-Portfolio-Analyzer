@@ -2,14 +2,12 @@ version: '3'
 
 services:
     app:
-        image: streamlit-tracker-docker
+        container_name: portfolio_tracker
+        image: portfolio_tracker
         build:
             dockerfile: ./Dockerfile
             context: .
-        #env_file: .env
         environment:
-            - PORT=$PORT
+            - PORT=5050
         ports:
-            - $PORT:$PORT
-        #volumes:
-        #    - ./app:/usr/app/src/
+            - 5050:5050
